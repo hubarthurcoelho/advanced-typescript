@@ -1,0 +1,24 @@
+{
+  "name": "advanced-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hubarthurcoelho/advanced-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hubarthurcoelho/advanced-typescript/issues"
+  },
+  "homepage": "https://github.com/hubarthurcoelho/advanced-typescript#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
