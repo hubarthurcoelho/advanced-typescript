@@ -33,8 +33,3 @@ jobs:
       run: |
         echo "A new version of package.json was pushed!"
         # Add your actual workflow steps here
-
-    - name: Trigger On Version unchanged
-      if: env.previous_version == env.current_version
-      run: |
-        echo "Nothing changed!"
