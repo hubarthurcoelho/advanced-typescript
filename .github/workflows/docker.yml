@@ -16,7 +16,7 @@ jobs:
     - name: Get Previous Version
       id: previous_version
       run: |
-        PREVIOUS_COMMIT=$(git rev-list -n 2 --skip=1 HEAD | tail -n 1)
+        PREVIOUS_COMMIT=$(git rev-list -n 3 --skip=2 HEAD | tail -n 1)
         PREVIOUS_VERSION=$(git show $PREVIOUS_COMMIT:package.json | grep -oP '(?<="version": ")[^"]+')
         echo "Previous version: $PREVIOUS_VERSION"
         echo "previous_version=$PREVIOUS_VERSION" >> "$GITHUB_ENV"
