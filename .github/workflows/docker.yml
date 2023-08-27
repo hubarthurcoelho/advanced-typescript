@@ -1,9 +1,12 @@
 name: "teste"
 
 on:
-  push:
+  pull_request:
     branches: 
       - main
+  push:
+    branches:
+      - test/workflows
 
 jobs:
   check-version:
@@ -19,26 +22,26 @@ jobs:
         PREVIOUS_COMMIT=$(git rev-list -n 2 --skip=1 HEAD | tail -n 1)
         PREVIOUS_VERSION=$(git show $PREVIOUS_COMMIT:package.json | grep -oP '(?<="version": ")[^"]+')
         echo "Previous version: $PREVIOUS_VERSION"
-        echo "::set-output name=version::$PREVIOUS_VERSION"
+        echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_ENV
   
     - name: Get Current Version
       id: current_version
       run: |
         CURRENT_VERSION=$(grep -oP '(?<="version": ")[^"]+' package.json)
         echo "Current version: $CURRENT_VERSION"
-        echo "::set-output name=version::$CURRENT_VERSION"
+        echo "current_version=$CURRENT_VERSION" >> $GITHUB_ENV
 
     - name: Compare Versions
       id: compare_versions
-      run: echo "::set-output name=changed::$(test ${{ steps.previous_version.outputs.version }} != ${{ steps.current_version.outputs.version }});"
+      run: echo "changed=$(test ${{ steps.previous_version.outputs.previous_version }} != ${{ steps.current_version.outputs.current_version }})" >> $GITHUB_ENV
   
     - name: Trigger On Version Change
       if: steps.compare_versions.outputs.changed == 'true'
       run: |
-          echo "A new version of package.json was pushed!"
-          # Add your actual workflow steps here
+        echo "A new version of package.json was pushed!"
+        # Add your actual workflow steps here
 
-    - name: Trigger On Version Change
+    - name: Trigger On Version unchanged
       if: steps.compare_versions.outputs.changed == 'false'
       run: |
         echo "Nothing changed!"
