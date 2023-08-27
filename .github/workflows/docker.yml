@@ -27,18 +27,14 @@ jobs:
         CURRENT_VERSION=$(grep -oP '(?<="version": ")[^"]+' package.json)
         echo "Current version: $CURRENT_VERSION"
         echo "current_version=$CURRENT_VERSION" >> "$GITHUB_ENV"
-
-    - name: Compare Versions
-      id: compare_versions
-      run: echo "changed=$("$previous_version" != "$current_version")" >> "$GITHUB_ENV"
   
     - name: Trigger On Version Change
-      if: env.changed == 'true'
+      if: env.previous_version != env.current_version
       run: |
         echo "A new version of package.json was pushed!"
         # Add your actual workflow steps here
 
     - name: Trigger On Version unchanged
-      if: env.changed == 'false'
+      if: env.previous_version == env.current_version
       run: |
         echo "Nothing changed!"
