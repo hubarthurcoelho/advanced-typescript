@@ -1,0 +1,43 @@
+name: "teste"
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Get Previous Version
+      id: previous_version
+      run: |
+        PREVIOUS_VERSION=$(git show HEAD~2:package.json | grep -oP '(?<="version": ")[^"]+')
+        echo "Previous version: $PREVIOUS_VERSION"
+        echo "::set-output name=version::$PREVIOUS_VERSION"
+  
+    - name: Get Current Version
+      id: current_version
+      run: |
+        CURRENT_VERSION=$(grep -oP '(?<="version": ")[^"]+' package.json)
+        echo "Current version: $CURRENT_VERSION"
+        echo "::set-output name=version::$CURRENT_VERSION"
+
+    - name: Compare Versions
+      id: compare_versions
+      run: echo "::set-output name=changed::$(test ${{ steps.previous_version.outputs.version }} != ${{ steps.current_version.outputs.version }});"
+  
+    - name: Trigger On Version Change
+      if: steps.compare_versions.outputs.changed == 'true'
+      run: |
+          echo "A new version of package.json was pushed!"
+          # Add your actual workflow steps here
+
+    - name: Trigger On Version Change
+      if: steps.compare_versions.outputs.changed == 'false'
+      run: |
+        echo "Nothing changed!"
