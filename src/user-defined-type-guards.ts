@@ -1,5 +1,5 @@
 interface IOffer {
-  type: 'hotel' | 'flight';
+  type: 'hotel' | 'flight'; // discriminative type
   name: string;
 }
 
@@ -62,4 +62,11 @@ if(newOffer.isHotel()) {
 if(newOffer.isFlight()) {
   //  in this scope, newOffer is now a flightOffer
   console.log(newOffer.getFlightName());
+}
+
+function xd(newOffer: OfferModel) {
+  if(!newOffer.isFlight()) {
+    return;
+  }
+  newOffer.getFlightName();
 }

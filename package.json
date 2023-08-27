@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jest": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,13 @@
     "url": "https://github.com/hubarthurcoelho/advanced-typescript/issues"
   },
   "homepage": "https://github.com/hubarthurcoelho/advanced-typescript#readme",
-  "dependencies": {},
+  "dependencies": {
+    "jest": "^29.6.2",
+    "ts-mockito": "^2.6.1"
+  },
   "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   }
 }
