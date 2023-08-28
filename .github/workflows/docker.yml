@@ -12,24 +12,19 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-
-    - name: Get Previous Version
-      id: previous_version
-      run: |
-        PREVIOUS_COMMIT=$(git rev-list -n 3 --skip=2 HEAD | tail -n 1)
-        PREVIOUS_VERSION=$(git show HEAD~2:package.json | grep -oP '(?<="version": ")[^"]+')
-        echo "Previous version: $PREVIOUS_VERSION"
-        echo "previous_version=$PREVIOUS_VERSION" >> "$GITHUB_ENV"
   
-    - name: Get Current Version
+    - name: Get Version Change
       id: current_version
       run: |
-        CURRENT_VERSION=$(grep -oP '(?<="version": ")[^"]+' package.json)
-        echo "Current version: $CURRENT_VERSION"
-        echo "current_version=$CURRENT_VERSION" >> "$GITHUB_ENV"
+        CHANGES=$(git log -1 --pretty=format:%s)
+        echo "Current version: $CHANGES"
+        if [[ $(git diff HEAD^ HEAD package.json | grep '^+\s*"version":') ]]; then
+        echo "current_version=$CHANGES" >> "$GITHUB_ENV"
+        else
+        echo "No changes to package version."
+        fi
   
     - name: Trigger On Version Change
-      if: env.previous_version != env.current_version
+      if: env.current_version
       run: |
-        echo "A new version of package.json was pushed!"
-        # Add your actual workflow steps here
+        echo "Version field of package.json was modified in the latest commit."
