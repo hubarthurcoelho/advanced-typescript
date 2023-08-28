@@ -16,12 +16,10 @@ jobs:
     - name: Get Version Change
       id: current_version
       run: |
-        CHANGES=$(git log -1 --pretty=format:%s)
-        echo "Current version: $CHANGES"
-        if [[ $(git diff HEAD^ HEAD package.json | grep '^+\s*"version":') ]]; then
-        echo "current_version=$CHANGES" >> "$GITHUB_ENV"
+        if [[ $(git log -1 --pretty=format:%s | grep -q "version") ]]; then
+        echo "Version field of package.json was modified in the latest commit."
         else
-        echo "No changes to package version."
+        echo "Version field of package.json was not modified in the latest commit."
         fi
   
     - name: Trigger On Version Change
