@@ -10,22 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - run: |
+          CHANGES=$(git diff ${{github.event.before}} ${{github.sha}})
+          echo "Changes: $CHANGES"
+
+      # - name: Get Version Change
+      #   id: current_version
+      #   run: |
+      #     CHANGES=$(git diff ${{github.event.before}} ${{github.sha}})
+      #     echo "Changes: $CHANGES"
+      #     if [[ $(git show package.json | grep '^+\s*"version":') ]]; then
+      #     echo "current_version=$CHANGES" >> "$GITHUB_ENV"
+      #     else
+      #     echo "No changes to package version."
+      #     fi
   
-    - name: Get Version Change
-      id: current_version
-      run: |
-        CHANGES=$(git diff ${{github.event.before}} ${{github.sha}})
-        echo "Changes: $CHANGES"
-        if [[ $(git show package.json | grep '^+\s*"version":') ]]; then
-        echo "current_version=$CHANGES" >> "$GITHUB_ENV"
-        else
-        echo "No changes to package version."
-        fi
-  
-    - name: Trigger On Version Change
-      if: env.current_version
-      run: |
-        echo "Version field of package.json was modified in the latest commit."
+      - name: Trigger On Version Change
+        if: env.current_version
+        run: |
+         echo "Version field of package.json was modified in the latest commit."
 
