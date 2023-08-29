@@ -24,3 +24,4 @@ jobs:
         if: env.DIFF
         run: |
           echo "$DIFF"
+# done!
