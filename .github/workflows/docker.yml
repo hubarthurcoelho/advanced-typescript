@@ -16,7 +16,7 @@ jobs:
       - name: Get diff and update environment
         id: diff
         run: |
-          echo "DIFF="$(git diff HEAD^ HEAD)" >> $GITHUB_ENV
+          echo DIFF=$(git diff HEAD^ HEAD | grep '^+\s*"version":') >> $GITHUB_ENV
         shell: bash
           
       - name: Show captured diff
