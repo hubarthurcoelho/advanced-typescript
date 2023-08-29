@@ -16,6 +16,8 @@ jobs:
     - name: Get Version Change
       id: current_version
       run: |
+        CHANGES=$(git log -1 --pretty=format:%s)
+        echo "Changes: $CHANGES"
         if [[ $(git show package.json | grep '^+\s*"version":') ]]; then
         echo "current_version=$CHANGES" >> "$GITHUB_ENV"
         else
