@@ -16,12 +16,11 @@ jobs:
           fetch-depth: 0
 
       - name: Get diff and update environment
+        id: diff
         run: |
-            git diff ${{github.event.before}} ${{github.sha}} >> $GITHUB_ENV
+          echo "DIFF=$(git diff ${{github.event.before}} ${{github.sha}})" >> $GITHUB_ENV
         shell: bash
-  
-      - name: Trigger On Version Change
-        if: env.current_version
+          
+      - name: Show captured diff
         run: |
-         echo "Version field of package.json was modified in the latest commit."
-
+          echo "$DIFF"
