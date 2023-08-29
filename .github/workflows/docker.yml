@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 4
+          fetch-depth: 2
 
       - name: Get Previous Version
         run: |
@@ -28,7 +28,6 @@ jobs:
 
 
       - name: Show captured diff
-        if: env.PREVIOUS_VERSION != env.CURRENT_VERSION
         run: |
           echo "$PREVIOUS_VERSION"
           echo "$CURRENT_VERSION"
