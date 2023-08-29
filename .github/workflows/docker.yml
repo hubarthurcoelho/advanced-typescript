@@ -14,19 +14,11 @@ jobs:
         with:
           # checkout full tree
           fetch-depth: 0
-      - run: |
-          git diff ${{github.event.before}} ${{github.sha}} >> "$GITHUB_ENV"
 
-      - name: Get Version Change
-        id: current_version
+      - name: Get diff and update environment
         run: |
-          echo "$GITHUB_ENV"
-
-          # if [[ $(git show package.json | grep '^+\s*"version":') ]]; then
-          # echo "current_version=$CHANGES" >> "$GITHUB_ENV"
-          # else
-          # echo "No changes to package version."
-          # fi
+            git diff ${{github.event.before}} ${{github.sha}} >> $GITHUB_ENV
+        shell: bash
   
       - name: Trigger On Version Change
         if: env.current_version
