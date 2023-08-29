@@ -1,13 +1,12 @@
 name: "teste"
 
 on:
-  push:
+  pull_request:
     branches: 
       - main
-  pull_request:
+  push:
     branches:
       - main
-      # main branch
 
 jobs:
   check-version:
