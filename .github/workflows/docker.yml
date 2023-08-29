@@ -31,16 +31,9 @@ jobs:
         run: |
           echo "$PREVIOUS_VERSION"
           echo "$CURRENT_VERSION"
-
-      - name: Get diff and update environment
-        id: diff
-        run: |
-          echo DIFF=$(git diff "${{ github.event.before }}" "${{ github.event.after }}" | grep '^+\s*"version":') >> $GITHUB_ENV
-          echo "$DIFF"
-        shell: bash
           
       - name: Show captured diff
-        if: env.DIFF
+        if: env.PREVIOUS_VERSION != env.CURRENT_VERSION
         run: |
-          echo "$DIFF"
+          echo "Published new version"
 # done!!
