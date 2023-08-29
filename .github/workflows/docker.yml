@@ -16,7 +16,7 @@ jobs:
       - name: Get diff and update environment
         id: diff
         run: |
-          echo DIFF=$(git diff ${{ github.event.before }} ${{ github.sha }} | grep '^+\s*"version":') >> $GITHUB_ENV
+          echo DIFF=$(git diff "${{ github.event.before }}" "${{ github.event.after }}" | grep '^+\s*"version":') >> $GITHUB_ENV
           echo "$DIFF"
         shell: bash
           
