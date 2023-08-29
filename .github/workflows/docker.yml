@@ -1,7 +1,7 @@
-name: "teste"
+name: "test"
 
 on:
-  push:
+  pull_request:
     branches: 
       - main
 
@@ -10,35 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 3
 
-    - name: Get Previous Version
-      id: previous_version
-      run: |
-        PREVIOUS_COMMIT=$(git rev-list -n 2 --skip=1 HEAD | tail -n 1)
-        PREVIOUS_VERSION=$(git show $PREVIOUS_COMMIT:package.json | grep -oP '(?<="version": ")[^"]+')
-        echo "Previous version: $PREVIOUS_VERSION"
-        echo "::set-output name=version::$PREVIOUS_VERSION"
-  
-    - name: Get Current Version
-      id: current_version
-      run: |
-        CURRENT_VERSION=$(grep -oP '(?<="version": ")[^"]+' package.json)
-        echo "Current version: $CURRENT_VERSION"
-        echo "::set-output name=version::$CURRENT_VERSION"
+      - name: Get Previous Version
+        run: |
+          echo PREVIOUS_VERSION=$(git show "${{ github.event.before }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo "$PREVIOUS_VERSION"
 
-    - name: Compare Versions
-      id: compare_versions
-      run: echo "::set-output name=changed::$(test ${{ steps.previous_version.outputs.version }} != ${{ steps.current_version.outputs.version }});"
-  
-    - name: Trigger On Version Change
-      if: steps.compare_versions.outputs.changed == 'true'
-      run: |
-          echo "A new version of package.json was pushed!"
-          # Add your actual workflow steps here
+      - name: Get Previous Version
+        run: |
+          echo CURRENT_VERSION=$(git show "${{ github.event.after }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo "$CURRENT_VERSION"
 
-    - name: Trigger On Version Change
-      if: steps.compare_versions.outputs.changed == 'false'
-      run: |
-        echo "Nothing changed!"
+      - name: Show captured diff
+        run: |
+          echo "$PREVIOUS_VERSION"
+          echo "$CURRENT_VERSION"
+
+      - name: Get diff and update environment
+        id: diff
+        run: |
+          echo DIFF=$(git diff "${{ github.event.before }}" "${{ github.event.after }}" | grep '^+\s*"version":') >> $GITHUB_ENV
+          echo "$DIFF"
+        shell: bash
+          
+      - name: Show captured diff
+        if: env.DIFF
+        run: |
+          echo "$DIFF"
+# done!!
