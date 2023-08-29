@@ -17,6 +17,7 @@ jobs:
         id: diff
         run: |
           echo DIFF=$(git diff HEAD^ HEAD | grep '^+\s*"version":') >> $GITHUB_ENV
+          echo "$DIFF"
         shell: bash
           
       - name: Show captured diff
