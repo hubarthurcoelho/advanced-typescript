@@ -16,7 +16,7 @@ jobs:
 
       - name: Get Previous Version
         run: |
-          echo PREVIOUS_VERSION=$(git show "${{ github.event.before }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo PREVIOUS_VERSION=$(git show "HEAD~1:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
           echo "$PREVIOUS_VERSION"
         shell: bash
 
