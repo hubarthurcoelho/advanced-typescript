@@ -22,7 +22,7 @@ jobs:
 
       - name: Get Previous Version
         run: |
-          echo CURRENT_VERSION=$(git show "${{ github.event.after }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo CURRENT_VERSION=$(git show "HEAD:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
           echo "$CURRENT_VERSION"
         shell: bash  
 
