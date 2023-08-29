@@ -20,5 +20,6 @@ jobs:
         shell: bash
           
       - name: Show captured diff
+        if: env.DIFF
         run: |
           echo "$DIFF"
