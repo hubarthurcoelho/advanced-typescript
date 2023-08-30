@@ -41,4 +41,3 @@ jobs:
         if: needs.check-versions.outputs.PREVIOUS_VERSION != needs.check-versions.outputs.CURRENT_VERSION
         run: |
           echo "Published new version"
-# done!!!

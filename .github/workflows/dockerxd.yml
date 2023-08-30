@@ -1,0 +1,28 @@
+name: "manual dispatch"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 3
+
+      - name: Get Previous Version
+        run: |
+          echo PREVIOUS_VERSION=$(git show "${{ github.event.before }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo "$PREVIOUS_VERSION"
+
+      - name: Get Previous Version
+        run: |
+          echo CURRENT_VERSION=$(git show "${{ github.event.after }}:package.json" | grep -o '"version": *"[^"]*"' | sed 's/"version": *"\(.*\)"/\1/') >> $GITHUB_ENV
+          echo "$CURRENT_VERSION"
+
+      - name: Show captured diff
+        run: |
+          echo "$PREVIOUS_VERSION"
+          echo "$CURRENT_VERSION"
+          
