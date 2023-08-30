@@ -1,16 +1,13 @@
 import { mockResolvedClass, mockClass, rawInstance } from "../mockedClass";
 import { UserRepository } from "../originalClass";
 
-describe('', () => {
-  it('', async () => {
-    const userRepo = rawInstance(UserRepository);
-    jest.spyOn(UserRepository, 'getInstance').mockReturnValue('xd2')
-
+describe('xd', () => {
+  it('xd', async () => {
     const userRepo1 = mockResolvedClass(UserRepository, { getAvailable: true });
 
 
-    const response = UserRepository.getInstance();
+    const response = userRepo1.getAvailable('xd');
 
-    expect(response).toEqual('xd2');
+    expect(response).toEqual(true);
   })
 });
