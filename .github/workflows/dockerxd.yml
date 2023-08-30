@@ -1,9 +1,7 @@
-name: "sonarcloud"
+name: "manual dispatch"
 
 on:
-  pull_request:
-    branches: 
-      - main
+  workflow_dispatch:
 
 jobs:
   check-version:
@@ -28,23 +26,3 @@ jobs:
           echo "$PREVIOUS_VERSION"
           echo "$CURRENT_VERSION"
           
-         
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting!
-        fetch-depth: 0
-
-    - name: install dependencies
-      run: npm install
-
-    - name: get test coverage
-      run: npm run jest -- --coverage 
-
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
