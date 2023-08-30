@@ -1,7 +1,7 @@
 name: "testing-outputs"
 
 on:
-  push:
+  pull_request:
     branches: 
       - main
 
@@ -29,8 +29,8 @@ jobs:
 
     - name: Show captured diff
       run: |
-        echo "$PREVIOUS_VERSION"
-        echo "$CURRENT_VERSION"
+        echo "${{ steps.get-previous-version.outputs.PREVIOUS_VERSION }}"
+        echo "${{ steps.get-current-version.outputs.CURRENT_VERSION }}"
 
   Publish:
     needs: check-versions
