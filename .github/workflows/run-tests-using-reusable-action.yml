@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    uses: hubarthurcoelho/my-workflows/.github/workflows/test.yml@main
+    uses: hubarthurcoelho/my-workflows/.github/workflows/test.yml@v2
     with:
       node-version: 16
       cache-key: advanced-typescript

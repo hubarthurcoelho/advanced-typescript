@@ -1,4 +1,4 @@
-import { mockResolvedClass, mockClass, rawInstance } from "../mockedClass";
+import { mockResolvedClass } from "../../mockedClass";
 import { UserRepository } from "../originalClass";
 
 describe('xd', () => {

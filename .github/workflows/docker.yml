@@ -1,9 +1,9 @@
 name: "sonarcloud"
 
 on:
-  pull_request:
+  push:
     branches: 
-      - _main
+      - main
 
 jobs:
   check-version:
