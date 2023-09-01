@@ -1,0 +1,15 @@
+name: Test App
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  test:
+    uses: hubarthurcoelho/my-workflows/.github/workflows/test.yml@main
+    with:
+      node-version: 16
+      cache-key: advanced-typescript
+      checkout-ref: ${{ github.sha }}
+      repository: ${{ github.repository }}
