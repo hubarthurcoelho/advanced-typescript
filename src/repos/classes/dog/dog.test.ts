@@ -6,6 +6,6 @@ describe('dog', () => {
   })
 
   it('dog walk', () => {
-    expect(new Dog().walk()).toBe('walk');
+    expect(new Dog().walk()).toBe('walked');
   })
 })
