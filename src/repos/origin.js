@@ -8,6 +8,4 @@ export class UserRepositoryJS {
   async getAvailable(xd) {
     return Promise.resolve(false);
   }
-
-  xd() {}
 }
