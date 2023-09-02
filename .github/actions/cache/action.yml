@@ -1,0 +1,26 @@
+name: Install & Cache Dependencies
+description: Get the dependencies from cache or install them.
+inputs:
+  node-version:
+    type: number
+    description: 'Node version to be used'
+    required: true
+  cache-key:
+    type: string
+    description: 'Cache key to be used'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ inputs.cache-key }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ inputs.node-version }}-${{ inputs.cache-key }}- 
+
+    - name: Install Dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: npm install
+        shell: bash
