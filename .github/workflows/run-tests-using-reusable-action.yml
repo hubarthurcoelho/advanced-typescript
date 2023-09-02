@@ -17,6 +17,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: check code
+        uses: actions/checkout@v2
       - name: xd
         uses: ./.github/actions/cache
         with:
