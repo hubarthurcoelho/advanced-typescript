@@ -14,13 +14,3 @@ jobs:
       cache-key: advanced-typescript
       checkout-ref: ${{ github.sha }}
       repository: ${{ github.repository }}
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check code
-        uses: actions/checkout@v2
-      - name: xd
-        uses: ./.github/actions/cache
-        with:
-          node-version: 16
-          cache-key: advanced-typescript
