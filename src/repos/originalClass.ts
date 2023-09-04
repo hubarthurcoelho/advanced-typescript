@@ -11,8 +11,6 @@ export class UserRepository {
   }
 
   public async getAvailable(xd: string): Promise<boolean> {
-    return Promise.resolve(true);
+    return Promise.resolve(false);
   }
-
-  private xd() {}
 }
