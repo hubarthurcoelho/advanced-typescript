@@ -5,6 +5,7 @@ on:
 
 jobs:
   run-reusable:
+    name: Test Code
     uses: ./.github/workflows/reusable-test.yml
     with:
       node-version: 16
