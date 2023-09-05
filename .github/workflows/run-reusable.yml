@@ -9,3 +9,11 @@ jobs:
     uses: ./.github/workflows/reusable-test.yml
     with:
       node-version: 16
+
+  print-after:
+    needs: run-reusable
+    name: print
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: echo "success"
