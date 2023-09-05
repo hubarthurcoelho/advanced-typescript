@@ -1,0 +1,10 @@
+name: Run Reusable
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-reusable:
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      node-version: 16
