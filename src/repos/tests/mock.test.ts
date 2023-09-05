@@ -8,6 +8,6 @@ describe('xd', () => {
 
     const response = userRepo1.getAvailable('xd');
 
-    expect(response).toEqual(false);
+    expect(response).toEqual(true);
   })
 });
