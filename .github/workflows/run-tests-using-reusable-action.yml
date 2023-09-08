@@ -18,9 +18,7 @@ jobs:
       - name: check ts-errors
         run: npx tsc --noEmit
   test:
-    uses: hubarthurcoelho/my-workflows/.github/workflows/test.yml@main
+    needs: type-check
+    uses: ./.github/workflows/reusable-test.yml
     with:
       node-version: 16
-      cache-key: advanced-typescript
-      checkout-ref: ${{ github.sha }}
-      repository: ${{ github.repository }}
