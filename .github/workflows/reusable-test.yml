@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests & Type Checks
 
 on:
   workflow_call:
@@ -9,9 +9,9 @@ on:
         required: true
 
 jobs:
-  test:
+  tests-and-type-checks:
     runs-on: ubuntu-latest
-    name: Run Tests
+    name: Run Tests & Type Checks
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -33,6 +33,11 @@ jobs:
       - name: Install Dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: npm install
+
+      - name: Type Checks
+        id: type-check
+        run: npx tsc --noEmit
   
       - name: Run Tests
+        if: steps.type-check.outcome == 'success'
         run: npm test

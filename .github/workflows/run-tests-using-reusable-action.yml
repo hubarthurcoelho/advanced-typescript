@@ -4,21 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  type-check:
-    name: Check TS
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-
-      - name: install deps
-        run: npm install
-      
-      - name: check ts-errors
-        run: npx tsc --noEmit
-  test:
-    needs: type-check
+  test-code:
+    name: Test Code
     uses: ./.github/workflows/reusable-test.yml
     with:
       node-version: 16
