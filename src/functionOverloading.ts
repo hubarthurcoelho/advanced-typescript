@@ -1,5 +1,5 @@
 // function overloading will correctly infer the type based on the param received
-function reverse(param: string): string
+function reverse(param: boolean): string
 function reverse(param: string[]): string[]
 function reverse(param: string | string[]): string | string[] {
   if (typeof param === 'string') {
