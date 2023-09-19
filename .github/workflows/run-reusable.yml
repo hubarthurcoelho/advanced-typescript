@@ -10,6 +10,9 @@ jobs:
     secrets: inherit
     with:
       node-version: 16
+      run-type-checks: true
+      run-tests: true
+      collect-test-coverage: true
       run-sonar-cloud: true
 
   print-after:

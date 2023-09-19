@@ -7,16 +7,40 @@ on:
         type: number
         description: 'Node version to be used'
         required: true
+
+      run-type-checks:
+        type: boolean
+        description: Whether or not to run type checks
+        required: true
+
+      run-tests:
+        type: boolean
+        description: Whether or not to run tests
+        required: true
+
+      collect-test-coverage:
+        type: boolean
+        description: Whether or not to collect test coverage
+        required: true
+
       run-sonar-cloud: 
         type: boolean
         description: 'If sonar cloud should analyze the code'
         required: true
 
 jobs:
-  tests-and-type-checks:
+  verify-code:
     runs-on: ubuntu-latest
-    name: Run Tests & Type Checks
+    name: Verify Code
     steps:
+      - name: Display Workflow Inputs
+        run: |
+          echo "Node Version: ${{ inputs.node-version }}"
+          echo "Run Type Checks: ${{ inputs.run-type-checks }}"
+          echo "Run Tests: ${{ inputs.run-tests }}"
+          echo "Collect Covarage: ${{ inputs.collect-test-coverage }}"
+          echo "Run SonarQube Scan: ${{ inputs.run-sonar-cloud }}"
+
       - name: Checkout code
         uses: actions/checkout@v2
         with:
@@ -40,12 +64,20 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: npm install
 
-      # - name: Type Checks
-      #   id: type-check
-      #   run: npm run typecheck
+      - name: Type Checks
+        if: inputs.run-type-checks
+        id: type-check
+        run: npm run typecheck
   
       - name: Run Tests
-        run: npm test -- --coverage 
+        if: inputs.run-tests
+        run: |
+          echo "Collect Coverage: ${{ inputs.collect-test-coverage }}"
+          if [ "${{ inputs.collect-test-coverage }}" = "true" ]; then
+            npm run jest:coverage
+          else
+            npm run jest
+          fi
 
       - name: Run Sonar Cloud
         uses: sonarsource/sonarcloud-github-action@master
