@@ -1,7 +1,7 @@
 export class UserRepository {
   private api: any;
   constructor(private dbName: string, private model: any) {
-    this.api = model.xd.xd.api;
+    // this.api = model.xd.xd.api;
   }
 
   public static getInstance() { return 'xd' }

@@ -7,4 +7,7 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.js$': 'ts-jest',
   },
+  collectCoverageFrom: [
+    '<rootDir>/src/repos/**.ts',
+  ]
 };
