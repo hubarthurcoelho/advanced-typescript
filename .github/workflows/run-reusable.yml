@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       node-version: 16
-      run-sonar-cloud: false
+      run-sonar-cloud: true
 
   print-after:
     needs: run-reusable
