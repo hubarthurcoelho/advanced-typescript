@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/reusable-test.yml
     with:
       node-version: 16
+      run-sonar-cloud: true
 
   print-after:
     needs: run-reusable
