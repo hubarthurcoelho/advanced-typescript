@@ -1,15 +1,13 @@
 name: Run Reusable
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   run-reusable:
     name: Test Code
     uses: ./.github/workflows/reusable-test.yml
+    secrets: inherit
     with:
       node-version: 16
       run-sonar-cloud: true
