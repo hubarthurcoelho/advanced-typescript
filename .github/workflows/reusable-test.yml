@@ -7,6 +7,10 @@ on:
         type: number
         description: 'Node version to be used'
         required: true
+      run-sonar-cloud: 
+        type: boolean
+        description: 'If sonar cloud should analyze the code'
+        required: true
 
 jobs:
   tests-and-type-checks:
@@ -36,8 +40,13 @@ jobs:
 
       - name: Type Checks
         id: type-check
-        run: npx tsc --noEmit
+        run: npm run typecheck
   
       - name: Run Tests
-        if: steps.type-check.outcome == 'success'
-        run: npm test
+        run: npm test -- --coverage 
+
+      - name: Run Sonar Cloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
