@@ -14,6 +14,6 @@ const newPerson: Person = {
   bith: new Date() // if commented, throws an error
 }
 
-assertDate(newPerson.bith, 'invalid date');
+assertDate(newPerson.bith, 'invalid dat');
 
 console.log(newPerson.bith); // safe after assertion
