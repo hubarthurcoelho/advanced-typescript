@@ -74,9 +74,9 @@ jobs:
         run: |
           echo "Collect Coverage: ${{ inputs.collect-test-coverage }}"
           if [ "${{ inputs.collect-test-coverage }}" = "true" ]; then
-            npm run jest:coverage
+            npm run test:coverage
           else
-            npm run jest
+            npm run test
           fi
 
       - name: Run Sonar Cloud
