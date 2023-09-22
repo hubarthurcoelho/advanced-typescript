@@ -13,7 +13,7 @@ jobs:
       run-type-checks: true
       run-tests: true
       collect-test-coverage: true
-      run-sonar-cloud: true
+      run-sonar-cloud: false
 
   print-after:
     needs: run-reusable
