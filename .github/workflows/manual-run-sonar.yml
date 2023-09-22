@@ -5,13 +5,8 @@ on:
     inputs:
       include-test-coverage:
         type: boolean
-        description: whether or not to run tests and collect coverage
+        description: Include test coverage
         required: true
-      node-version:
-        type: number
-        description: node version to use
-        required: false
-        default: 16
 
 jobs:
   run-sonar-scan:
@@ -26,16 +21,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ inputs.node-version }}
+          node-version: 16
   
       - name: Cache Dependencies
         id: cache-dependencies
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ inputs.node-version }}-api-core-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-16-api-core-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ inputs.node-version }}-api-core- 
+            ${{ runner.os }}-node-16-api-core- 
   
       - name: Install Dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
