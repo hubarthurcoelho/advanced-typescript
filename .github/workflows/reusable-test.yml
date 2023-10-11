@@ -111,10 +111,14 @@ jobs:
         if: inputs.collect-test-coverage
         with:
           name: coverage
+          path: ./coverage
       
       - name: Print files
         run: |
           ls -a
+      - name: Print files
+        run: ls -R
+        working-directory: ./coverage
 
       # - name: Run Sonar Cloud
       #   uses: sonarsource/sonarcloud-github-action@master
