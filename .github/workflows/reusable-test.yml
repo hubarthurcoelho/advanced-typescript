@@ -95,6 +95,7 @@ jobs:
           retention-days: 1
 
   sonarAnalysis:
+    needs: verify-code
     runs-on: ubuntu-latest
     name: Runar Sonar analysis
     if: inputs.run-sonar-cloud
