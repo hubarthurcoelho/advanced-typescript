@@ -113,7 +113,8 @@ jobs:
           name: coverage
       
       - name: Print files
-        run: ls
+        run: |
+          ls -a
 
       # - name: Run Sonar Cloud
       #   uses: sonarsource/sonarcloud-github-action@master
