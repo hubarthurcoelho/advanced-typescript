@@ -2,6 +2,32 @@ name: Run Reusable
 
 on:
   workflow_dispatch:
+    inputs:
+      node-version:
+        type: number
+        description: 'Node version to be used'
+        required: true
+
+      run-type-checks:
+        type: boolean
+        description: Whether or not to run type checks
+        required: true
+
+      run-tests:
+        type: boolean
+        description: Whether or not to run tests
+        required: true
+
+      collect-test-coverage:
+        type: boolean
+        description: Whether or not to collect test coverage
+        required: true
+
+      run-sonar-cloud: 
+        type: boolean
+        description: 'If sonar cloud should analyze the code'
+        required: true
+
 
 jobs:
   run-reusable:
@@ -9,11 +35,11 @@ jobs:
     uses: ./.github/workflows/reusable-test.yml
     secrets: inherit
     with:
-      node-version: 16
-      run-type-checks: true
-      run-tests: true
-      collect-test-coverage: true
-      run-sonar-cloud: false
+      node-version: ${{ inputs.node-version }}
+      run-type-checks: ${{ inputs.run-type-checks }}
+      run-tests: ${{ inputs.run-tests }}
+      collect-test-coverage: ${{ inputs.collect-test-coverage }}
+      run-sonar-cloud: ${{ inputs.run-sonar-cloud }}
 
   print-after:
     needs: run-reusable
