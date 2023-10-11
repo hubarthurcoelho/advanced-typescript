@@ -111,10 +111,13 @@ jobs:
         if: inputs.collect-test-coverage
         with:
           name: coverage
+      
+      - name: Print files
+        run: ls
 
-      - name: Run Sonar Cloud
-        uses: sonarsource/sonarcloud-github-action@master
-        if: inputs.run-sonar-cloud
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: Run Sonar Cloud
+      #   uses: sonarsource/sonarcloud-github-action@master
+      #   if: inputs.run-sonar-cloud
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
