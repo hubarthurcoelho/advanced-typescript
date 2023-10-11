@@ -7,7 +7,8 @@ export class UserRepository {
   public static getInstance() { return 'xd' }
 
   public async getUsers(xd: string): Promise<{ name: string, password: string }> {
-    return { name: 'arthur', password: '123444' };
+    const name = 'arthur';
+    return { name, password: '123444' };
   }
 
   public async getAvailable(xd: string): Promise<boolean> {

@@ -113,16 +113,9 @@ jobs:
           name: coverage
           path: ./coverage
       
-      - name: Print files
-        run: |
-          ls -a
-      - name: Print files
-        run: ls -R
-        working-directory: ./coverage
-
-      # - name: Run Sonar Cloud
-      #   uses: sonarsource/sonarcloud-github-action@master
-      #   if: inputs.run-sonar-cloud
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run Sonar Cloud
+        uses: sonarsource/sonarcloud-github-action@master
+        if: inputs.run-sonar-cloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
