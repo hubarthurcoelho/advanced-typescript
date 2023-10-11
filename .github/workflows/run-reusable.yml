@@ -23,7 +23,6 @@ on:
         description: 'Analyze code with sonar cloud'
         required: true
 
-
 jobs:
   run-reusable:
     name: Test Code

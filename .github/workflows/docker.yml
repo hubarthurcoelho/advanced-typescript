@@ -3,7 +3,7 @@ name: "sonarcloud"
 on:
   push:
     branches: 
-      - main
+      - _main
 
 jobs:
   check-version:
